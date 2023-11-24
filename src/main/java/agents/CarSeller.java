@@ -5,7 +5,7 @@ import jade.core.Agent;
 public class CarSeller extends Agent {
     @Override
     protected void setup(){
-        System.out.println("SHIT1");
+        System.out.println("SHIT1: "+getAID().getName() );
     }
 
 }
