@@ -1,5 +1,0 @@
-javac -classpath lib\jade.jar -d compiled src\main\java\agents\*.java
-java -cp lib\jade.jar jade.Boot -gui
-java -cp lib\jade.jar;classes jade.Boot -gui -agents ping1:compiled.agents.CarBuyer
-
- java -cp lib\jade.jar jade.Boot -gui -agents ping1:compiled.agents.CarBuyer.class -local-host 127.0.0.1 -local 1111
