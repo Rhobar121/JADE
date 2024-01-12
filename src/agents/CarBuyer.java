@@ -144,7 +144,6 @@ public class CarBuyer extends Agent{
                                        request.setContent(responseMessage);
                                        request.addReceiver(response.getSender());
                                        send(request);
-                                       System.out.println(request);
                                        Logs.BuyerBrought(car,getAID(),response.getSender(),budget);
                                    }
                                }
