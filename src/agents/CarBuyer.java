@@ -4,7 +4,6 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
-import org.glassfish.pfl.basic.logex.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,18 +140,19 @@ public class CarBuyer extends Agent{
                                        } else {
                                            responseMessage = MessageBuilder.responseBuilder(CarActions.CANCEL, car);
                                        }
-                                       request = new ACLMessage(ACLMessage.CONFIRM);
+                                       request = new ACLMessage(ACLMessage.REQUEST);
                                        request.setContent(responseMessage);
-                                       request.setSender(request.getSender());
+                                       request.addReceiver(response.getSender());
                                        send(request);
+                                       System.out.println(request);
                                        Logs.BuyerBrought(car,getAID(),response.getSender(),budget);
                                    }
                                }
                             }else if(response.getContent().contains((CarActions.DENIAL.toString()))){
                                Logs.BuyerGetDenial(car, getAID(), response.getSender());
                            }
-                            requestFindSend = false;
-                            requestBuySend = false;
+                           requestFindSend = false;
+                           requestBuySend = false;
                         }
                     }
                 }

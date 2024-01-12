@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Logs {
     public static void BuyerFindLog(ArrayList<Car> items, AID agent){
         if(items != null) {
-            System.out.print("Agent: " + agent.getName() + " ");
+            System.out.print("Agent: " + agent.getName() + " " + "looking for:\n");
             System.out.print("looking for:\n");
             for (Car car : items) {
                 System.out.print("    Brand: " + car.brand + " ");
@@ -47,11 +47,11 @@ public class Logs {
         }
     }
 
-    public static void BuyerGetApproval(Car car, AID agent, AID agent2){
+    public static void SellerSendApproval(Car car, AID agent, AID agent2){
         if(car != null) {
             System.out.print("Agent: " + agent.getName() + " ");
             System.out.print("start the transaction with agent: " + agent2.getName());
-            System.out.print(" to buy: \n");
+            System.out.print(" to sell: \n");
             System.out.print("    Brand: " + car.brand + " ");
             System.out.print(" Model: " + car.model + " ");
             System.out.print(" Year of Production: " + car.yearOfProduction + " ");
@@ -91,6 +91,33 @@ public class Logs {
 
     public static void AgentDead(AID agent){
         System.out.print("Agent: " + agent.getName() + " finished work");
+        System.out.print("\n\n");
+    }
+
+    public static void SellerSendOffer(AID agent, AID agent2){
+        System.out.print("Agent: " + agent.getName() + " sent an offer to "+agent2.getName());
+        System.out.print("\n\n");
+    }
+
+    public static void TransactionCancel(Car car, AID agent, AID agent2){
+        System.out.print("Agent: " + agent2.getName() + " canceled transactions with:" + agent.getName()+"\n");
+        System.out.print("The reservation for:\n");
+        System.out.print("    Brand: " + car.brand + " ");
+        System.out.print(" Model: " + car.model + " ");
+        System.out.print(" Year of Production: " + car.yearOfProduction + " ");
+        System.out.print(" Engine: " + car.engine + " ");
+        System.out.print(" for: " + car.cost + " with total price of: " + car.getTotalPrice() + " \n");
+        System.out.print("has been cancelled ");
+        System.out.print("\n\n");
+    }
+
+    public static void CarSold(Car car, AID agent){
+        System.out.print("Agent: " + agent.getName()+" sold:\n");
+        System.out.print("    Brand: " + car.brand + " ");
+        System.out.print(" Model: " + car.model + " ");
+        System.out.print(" Year of Production: " + car.yearOfProduction + " ");
+        System.out.print(" Engine: " + car.engine + " ");
+        System.out.print(" for: " + car.cost + " with total price of: " + car.getTotalPrice());
         System.out.print("\n\n");
     }
 }
