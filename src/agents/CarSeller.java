@@ -7,10 +7,11 @@ import jade.lang.acl.ACLMessage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CarSeller extends Agent {
     ArrayList<Car> cars;
-    HashMap<Car, Boolean> reservation;
+    HashMap<Car, String> reservation;
     AID[] aids;
 
     private void findAction(String request, ACLMessage receivedMessage){
@@ -36,7 +37,7 @@ public class CarSeller extends Agent {
         Car requested = Car.parseString(request);
         for(Car car : cars){
             if(car.equals(requested)){
-                reservation.replace(requested,false);
+                reservation.replace(requested,null);
             }
         }
         if(requested!=null) {
@@ -65,12 +66,14 @@ public class CarSeller extends Agent {
         String message = null;
         for(Car car : cars){
             if(car.equals(requested)){
-                if(!reservation.get(car)){
-                    reservation.replace(car,true);
-                    message = MessageBuilder.responseBuilder(CarActions.APPROVE,requested);
-                    Logs.SellerSendApproval(car,getAID(),receivedMessage.getSender());
-                } else{
-                    message = MessageBuilder.responseBuilder(CarActions.DENIAL,requested);
+                if(reservation.containsKey(car)) {
+                    if (reservation.get(car) == null || Objects.equals(reservation.get(car), receivedMessage.getSender().getName())) {
+                        reservation.replace(car, receivedMessage.getSender().getName());
+                        message = MessageBuilder.responseBuilder(CarActions.APPROVE, requested);
+                        Logs.SellerSendApproval(car, getAID(), receivedMessage.getSender());
+                    } else {
+                        message = MessageBuilder.responseBuilder(CarActions.DENIAL, requested);
+                    }
                 }
             }
         }
@@ -94,7 +97,7 @@ public class CarSeller extends Agent {
         for (Object arg : args) {
             Car car = Car.parseString((String) arg);
             cars.add(car);
-            reservation.put(car,false);
+            reservation.put(car,null);
         }
         addBehaviour(new TickerBehaviour(this,500)
         {
@@ -116,7 +119,7 @@ public class CarSeller extends Agent {
                 }
                 if(cars.isEmpty()){
                     Logs.AgentDead(getAID());
-                   // doDelete();
+                    // doDelete();
                 }
             }
         });
@@ -131,24 +134,24 @@ public class CarSeller extends Agent {
         };
         Car [] cars  = new Car [] {
                 new Car ("BMW","201","wa1",10,1998,20000,2500),
-                new Car ("BMW","201","wa1",10,1998,30000,5000),
+                new Car ("BMW","201","wa1",10,1998,10000,5000),
                 new Car ("BMW","201","wa1",10,1998,30000,500),
-                new Car ("BMW","201","wa1",10,1998,40000,2500),
+                new Car ("BMW","201","wa1",10,1998,40000,1000),
                 new Car ("BMW","201","wa1",10,1998,20000,5000),
-                new Car ("BMW","201","wa1",10,1998,50000,500),
+                new Car ("BMW","201","wa1",10,1998,30000,500),
                 new Car ("AUDI","V2","w3a1",10,2010,10000,500),
                 new Car ("AUDI","V2","w3a1",10,2010,30000,500),
-                new Car ("AUDI","V2","w3a1",10,2010,50000,500),
+                new Car ("AUDI","V2","w3a1",10,2010,24000,500),
                 new Car ("AUDI","V2","w3a1",10,2010,10000,500),
                 new Car ("AUDI","V2","w3a1",10,2010,20000,500),
-                new Car ("DD","201","wa1",10,1998,50000,500),
-                new Car ("DD","201","wa1",10,1998,60000,5000),
-                new Car ("DD","201","wa1",10,1998,40000,2500),
+                new Car ("DD","201","wa1",10,1998,30000,500),
+                new Car ("DD","201","wa1",10,1998,30000,1000),
+                new Car ("DD","201","wa1",10,1998,20000,2500),
                 new Car ("DD","201","wa1",10,1998,10000,500),
                 new Car ("W!","201","wa1",10,1998,30000,2500),
-                new Car ("W!","201","wa1",10,1998,50000,500),
-                new Car ("W!","201","wa1",10,1998,20000,2500),
-                new Car ("W!","201","wa1",10,1998,50000,3500),
+                new Car ("W!","201","wa1",10,1998,10000,500),
+                new Car ("W!","201","wa1",10,1998,20000,1500),
+                new Car ("W!","201","wa1",10,1998,25000,2500),
                 new Car ("W!","201","wa1",10,1998,10000,500),
                 new Car ("BMW","201","wa1",10,1998,5000,1000),
         };
@@ -161,62 +164,59 @@ public class CarSeller extends Agent {
         bootOptions[3] = "-agents";
         bootOptions[4] =
                 "CarSeller1:agents.CarSeller("
-                        + cars[0]+ " " + cars[1] + " "
-                        + cars[2] + " " + cars[3] + " "
-                        + cars[4] + " " + cars[5] + " "
-                        + cars[6] + " " + cars[7]+");"+
-                "CarSeller2:agents.CarSeller("
-                        + cars[8]+ " " + cars[9] + " "
-                        + cars[10] + " " + cars[11] + " "
-                        + cars[12] + " " + cars[13] + " "
-                        + cars[14] + " " + cars[15]+");"+
-                "CarSeller3:agents.CarSeller("
-                        + cars[0]+ " " + cars[15] + " "
-                        + cars[1] + " " + cars[14] + " "
-                        + cars[2] + " " + cars[13] + " "
-                        + cars[3] + " " + cars[19]+");"+
-                "CarSeller4:agents.CarSeller("
-                        + cars[13]+ " " + cars[12] + " "
-                        + cars[14] + " " + cars[15] + " "
-                        + cars[17] + " " + cars[16] + " "
-                        + cars[18] + " " + cars[19]+");"+
-               "CarSeller5:agents.CarSeller("
-                        + cars[0]+ " " + cars[10] + " "
-                        + cars[1] + " " + cars[11] + " "
-                        + cars[2] + " " + cars[12] + " "
-                        + cars[3] + " " + cars[13]+");"+
-               "CarSeller6:agents.CarSeller("
-                        + cars[19]+ " " + cars[15] + " "
-                        + cars[18] + " " + cars[14] + " "
-                        + cars[17] + " " + cars[16] + " "
-                        + cars[16] + " " + cars[0]+");"+
-               "CarSeller7:agents.CarSeller("
-                        + cars[1]+ " " + cars[5] + " "
-                        + cars[15] + " " + cars[9] + " "
-                        + cars[15] + " " + cars[10] + " "
-                        + cars[14] + " " + cars[12]+");"+
-               "CarSeller8:agents.CarSeller("
-                        + cars[13]+ " " + cars[12] + " "
-                        + cars[14] + " " + cars[15] + " "
-                        + cars[17] + " " + cars[16] + " "
-                        + cars[18] + " " + cars[19]+");"+
-               "CarSeller9:agents.CarSeller("
-                        + cars[0]+ " " + cars[1] + " "
-                        + cars[14] + " " + cars[2] + " "
-                        + cars[5] + " " + cars[4] + " "
-                        + cars[18] + " " + cars[20]+");"+
-               "CarSeller10:agents.CarSeller("
-                        + cars[3]+ " " + cars[1] + " "
-                        + cars[4] + " " + cars[2] + " "
-                        + cars[5] + " " + cars[4] + " "
-                        + cars[19] + " " + cars[20]+");"+
-               "CarBuyer1:agents.CarBuyer(" + carToBuy[0]+ " " + carToBuy[1] + " " + carToBuy[2]+");"+
-               "CarBuyer2:agents.CarBuyer(" + carToBuy[0]+ " " + carToBuy[2] + " " + carToBuy[3]+");"+
-               "CarBuyer3:agents.CarBuyer(" + carToBuy[3]+ " " + carToBuy[2] + " " + carToBuy[1]+");";
+                        + cars[0]+ "," + cars[1] + ","
+                        + cars[2] + "," + cars[3] + ","
+                        + cars[4] + "," + cars[5] + ","
+                        + cars[6] + "," + cars[7]+");"+
+                        "CarSeller2:agents.CarSeller("
+                        + cars[8]+ "," + cars[9] + ","
+                        + cars[10] + "," + cars[11] + ","
+                        + cars[12] + "," + cars[13] + ","
+                        + cars[14] + "," + cars[15]+");"+
+                        "CarSeller3:agents.CarSeller("
+                        + cars[0]+ "," + cars[15] + ","
+                        + cars[1] + "," + cars[14] + ","
+                        + cars[2] + "," + cars[13] + ","
+                        + cars[3] + "," + cars[19]+");"+
+                        "CarSeller4:agents.CarSeller("
+                        + cars[13]+ "," + cars[12] + ","
+                        + cars[14] + "," + cars[15] + ","
+                        + cars[17] + "," + cars[16] + ","
+                        + cars[18] + "," + cars[19]+");"+
+                        "CarSeller5:agents.CarSeller("
+                        + cars[0]+ "," + cars[10] + ","
+                        + cars[1] + "," + cars[11] + ","
+                        + cars[2] + "," + cars[12] + ","
+                        + cars[3] + "," + cars[13]+");"+
+                        "CarSeller6:agents.CarSeller("
+                        + cars[19]+ "," + cars[15] + ","
+                        + cars[18] + "," + cars[14] + ","
+                        + cars[17] + "," + cars[16] + ","
+                        + cars[16] + "," + cars[0]+");"+
+                        "CarSeller7:agents.CarSeller("
+                        + cars[1]+ "," + cars[5] + ","
+                        + cars[15] + "," + cars[9] + ","
+                        + cars[15] + "," + cars[10] + ","
+                        + cars[14] + "," + cars[12]+");"+
+                        "CarSeller8:agents.CarSeller("
+                        + cars[13]+ "," + cars[12] + ","
+                        + cars[14] + "," + cars[15] + ","
+                        + cars[17] + "," + cars[16] + ","
+                        + cars[18] + "," + cars[19]+");"+
+                        "CarSeller9:agents.CarSeller("
+                        + cars[0]+ "," + cars[1] + ","
+                        + cars[14] + "," + cars[2] + ","
+                        + cars[5] + "," + cars[4] + ","
+                        + cars[18] + "," + cars[20]+");"+
+                        "CarSeller10:agents.CarSeller("
+                        + cars[3]+ "," + cars[1] + ","
+                        + cars[4] + "," + cars[2] + ","
+                        + cars[5] + "," + cars[4] + ","
+                        + cars[19] + "," + cars[20]+");"+
+                        "CarBuyer1:agents.CarBuyer(" + carToBuy[0]+ "," + carToBuy[1] + "," + carToBuy[2]+");"+
+                        "CarBuyer2:agents.CarBuyer(" + carToBuy[0]+ "," + carToBuy[2] + "," + carToBuy[3]+");"+
+                        "CarBuyer3:agents.CarBuyer(" + carToBuy[3]+ "," + carToBuy[2] + "," + carToBuy[1]+");";
         jade.Boot.main(bootOptions);
-
-
     }
-
-
 }
+
