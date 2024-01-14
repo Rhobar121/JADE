@@ -35,13 +35,15 @@ public class CarSeller extends Agent {
 
     private void cancelAction(String request, ACLMessage message){
         Car requested = Car.parseString(request);
+        Car ret = null;
         for(Car car : cars){
             if(car.equals(requested)){
                 reservation.replace(requested,null);
+                ret = car;
             }
         }
-        if(requested!=null) {
-            Logs.TransactionCancel(requested, getAID(), message.getSender());
+        if(requested!=null && ret != null) {
+            Logs.TransactionCancel(ret, getAID(), message.getSender());
         }
     }
 

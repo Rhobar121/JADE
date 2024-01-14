@@ -8,8 +8,8 @@ public class Car {
     String engine;
     int capacity;
     int yearOfProduction;
-    float cost;
-    float extraCost;
+    int cost;
+    int extraCost;
 
     public Car(String brand, String model, String engine, int capacity, int yearOfProduction){
         this.brand = brand;
@@ -17,10 +17,10 @@ public class Car {
         this.engine = engine;
         this.capacity = capacity;
         this.yearOfProduction =yearOfProduction;
-        this.cost = Float.MIN_VALUE;
-        this.extraCost = Float.MIN_VALUE;
+        this.cost = Integer.MIN_VALUE;
+        this.extraCost = Integer.MIN_VALUE;
     }
-    public Car(String brand, String model, String engine, int capacity, int yearOfProduction, float cost, float extraCost){
+    public Car(String brand, String model, String engine, int capacity, int yearOfProduction, int cost, int extraCost){
         this.brand = brand;
         this.model = model;
         this.engine = engine;
@@ -30,7 +30,7 @@ public class Car {
         this.extraCost =extraCost;
     }
 
-    public float getTotalPrice(){
+    public int getTotalPrice(){
         return cost + extraCost;
     }
 
@@ -95,8 +95,8 @@ public class Car {
                         temp[2],
                         Integer.parseInt(temp[3]),
                         Integer.parseInt(temp[4]),
-                        Float.parseFloat(temp[5]),
-                        Float.parseFloat(temp[6]));
+                        Integer.parseInt(temp[5]),
+                        Integer.parseInt(temp[6]));
             } else {
                 return new Car(
                         temp[0],

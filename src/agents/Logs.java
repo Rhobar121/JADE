@@ -88,7 +88,7 @@ public class Logs {
         }
     }
 
-    public static void BuyerBrought(Car car, AID agent, AID agent2, float currentBudget){
+    public static void BuyerBrought(Car car, AID agent, AID agent2, int currentBudget){
         if(car != null) {
             String str = "Agent: "
                     + agent.getName()

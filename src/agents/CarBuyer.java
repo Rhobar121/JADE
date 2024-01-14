@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class CarBuyer extends Agent{
     ArrayList<Car> cars;
-    Float budget;
+    int budget;
     AID [] aids;
     boolean requestFindSend = false;
     boolean requestBuySend = false;
@@ -76,7 +76,7 @@ public class CarBuyer extends Agent{
     }
     @Override
     protected void setup(){
-        budget = 1000000f;
+        budget = 1000000;
 
         Object [] args = getArguments();
 
