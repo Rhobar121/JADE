@@ -144,14 +144,14 @@ public class CarBuyer extends Agent{
                                             budget -= car.getTotalPrice();
                                             cars.remove(index);
                                             responseMessage = MessageBuilder.responseBuilder(CarActions.PAY, car);
-                                            request = new ACLMessage(ACLMessage.REQUEST);
+                                            request = new ACLMessage(ACLMessage.CONFIRM);
                                             request.setContent(responseMessage);
                                             request.addReceiver(response.getSender());
                                             send(request);
                                             Logs.BuyerBrought(car,getAID(),response.getSender(),budget);
                                         } else if(budget-car.getTotalPrice()<0 || index == -1){
                                             responseMessage = MessageBuilder.responseBuilder(CarActions.CANCEL, car);
-                                            request = new ACLMessage(ACLMessage.REQUEST);
+                                            request = new ACLMessage(ACLMessage.CANCEL);
                                             request.setContent(responseMessage);
                                             request.addReceiver(response.getSender());
                                             send(request);
@@ -162,7 +162,7 @@ public class CarBuyer extends Agent{
                                 Logs.BuyerGetDenial(car, getAID(), response.getSender());
                             } else if(response.getContent().contains((CarActions.APPROVE.toString())) && cars.isEmpty()){
                                 responseMessage = MessageBuilder.responseBuilder(CarActions.CANCEL, car);
-                                request = new ACLMessage(ACLMessage.REQUEST);
+                                request = new ACLMessage(ACLMessage.CANCEL);
                                 request.setContent(responseMessage);
                                 request.addReceiver(response.getSender());
                                 send(request);

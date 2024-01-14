@@ -53,7 +53,7 @@ public class Logs {
         if(car != null) {
             String str = "Agent: "
                     + agent.getName()
-                    + "sent a purchase offer to agent: "
+                    + " sent a purchase offer to agent: "
                     + agent2.getName()
                     + " for: \n"
                     + "    Brand: "
@@ -160,7 +160,7 @@ public class Logs {
                 + car.cost
                 + " with total price of: "
                 + car.getTotalPrice()
-                + "has been cancelled \n\n";
+                + " has been cancelled \n\n";
         System.out.print(str);
     }
 
