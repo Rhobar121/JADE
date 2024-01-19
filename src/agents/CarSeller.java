@@ -15,7 +15,7 @@ public class CarSeller extends Agent {
     AID[] aids;
 
     private void findAction(String request, ACLMessage receivedMessage){
-        Car [] requested = Car.splitStringAndGetCars(request,";");
+        Car [] requested = Car.splitString(request,";");
         ArrayList<Car> responseList = new ArrayList<>();
         for (Car value : cars) {
             for (Car requestCar : requested) {
@@ -129,33 +129,33 @@ public class CarSeller extends Agent {
 
     public static void main(String[] args){
         Car[] carToBuy = new Car[] {
-                new Car ("BMW","201","wa1",10,1998),
-                new Car ("AUDI","V2","w3a1",10,2010),
-                new Car ("DD","201","wa1",10,1998),
-                new Car ("W!","201","wa1",10,1998),
+                new Car ("BMW","dd","201","wa1",10,1998),
+                new Car ("AUDI","dd","V2","w3a1",10,2010),
+                new Car ("DD","dd","201","wa1",10,1998),
+                new Car ("W!","dd","201","wa1",10,1998),
         };
         Car [] cars  = new Car [] {
-                new Car ("BMW","201","wa1",10,1998,20000,2500),
-                new Car ("BMW","201","wa1",10,1998,10000,5000),
-                new Car ("BMW","201","wa1",10,1998,30000,500),
-                new Car ("BMW","201","wa1",10,1998,40000,1000),
-                new Car ("BMW","201","wa1",10,1998,20000,5000),
-                new Car ("BMW","201","wa1",10,1998,30000,500),
-                new Car ("AUDI","V2","w3a1",10,2010,10000,500),
-                new Car ("AUDI","V2","w3a1",10,2010,30000,500),
-                new Car ("AUDI","V2","w3a1",10,2010,24000,500),
-                new Car ("AUDI","V2","w3a1",10,2010,10000,500),
-                new Car ("AUDI","V2","w3a1",10,2010,20000,500),
-                new Car ("DD","201","wa1",10,1998,30000,500),
-                new Car ("DD","201","wa1",10,1998,30000,1000),
-                new Car ("DD","201","wa1",10,1998,20000,2500),
-                new Car ("DD","201","wa1",10,1998,10000,500),
-                new Car ("W!","201","wa1",10,1998,30000,2500),
-                new Car ("W!","201","wa1",10,1998,10000,500),
-                new Car ("W!","201","wa1",10,1998,20000,1500),
-                new Car ("W!","201","wa1",10,1998,25000,2500),
-                new Car ("W!","201","wa1",10,1998,10000,500),
-                new Car ("BMW","201","wa1",10,1998,5000,1000),
+                new Car ("BMW","dd","201","wa1",10,1998,20000,2500),
+                new Car ("BMW","dd","201","wa1",10,1998,10000,5000),
+                new Car ("BMW","dd","201","wa1",10,1998,30000,500),
+                new Car ("BMW","dd","201","wa1",10,1998,40000,1000),
+                new Car ("BMW","dd","201","wa1",10,1998,20000,5000),
+                new Car ("BMW","dd","201","wa1",10,1998,30000,500),
+                new Car ("AUDI","dd","V2","w3a1",10,2010,10000,500),
+                new Car ("AUDI","dd","V2","w3a1",10,2010,30000,500),
+                new Car ("AUDI","dd","V2","w3a1",10,2010,24000,500),
+                new Car ("AUDI","dd","V2","w3a1",10,2010,10000,500),
+                new Car ("AUDI","dd","V2","w3a1",10,2010,20000,500),
+                new Car ("DD","dd","201","wa1",10,1998,30000,500),
+                new Car ("DD","dd","201","wa1",10,1998,30000,1000),
+                new Car ("DD","dd","201","wa1",10,1998,20000,2500),
+                new Car ("DD","dd","201","wa1",10,1998,10000,500),
+                new Car ("W!","dd","201","wa1",10,1998,30000,2500),
+                new Car ("W!","dd","201","wa1",10,1998,10000,500),
+                new Car ("W!","dd","201","wa1",10,1998,20000,1500),
+                new Car ("W!","dd","201","wa1",10,1998,25000,2500),
+                new Car ("W!","dd","201","wa1",10,1998,10000,500),
+                new Car ("BMW","dd","201","wa1",10,1998,5000,1000),
         };
 
 

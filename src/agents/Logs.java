@@ -13,6 +13,8 @@ public class Logs {
                         .append(car.brand)
                         .append("  Model: ")
                         .append(car.model)
+                        .append("  Body: ")
+                        .append(car.body)
                         .append("  Year of Production: ")
                         .append(car.yearOfProduction)
                         .append("  Engine: ")
@@ -36,6 +38,8 @@ public class Logs {
                     car.brand +
                     "  Model: " +
                     car.model +
+                    "  Body: "
+                    + car.body +
                     "  Year of Production: " +
                     car.yearOfProduction +
                     "  Engine: " +
@@ -60,6 +64,8 @@ public class Logs {
                     + car.brand
                     + "  Model: "
                     + car.model
+                    + "  Body: "
+                    + car.body
                     + "  Year of Production: "
                     + car.yearOfProduction
                     + "  Engine: "
@@ -79,6 +85,8 @@ public class Logs {
                     + car.brand
                     + "  Model: "
                     + car.model
+                    + "  Body: "
+                    + car.body
                     + "  Year of Production: "
                     + car.yearOfProduction
                     + "  Engine: "
@@ -98,7 +106,9 @@ public class Logs {
                     + car.brand
                     + "  Model: "
                     + car.model
-                    +  " Year of Production: "
+                    + "  Body: "
+                    + car.body
+                    + " Year of Production: "
                     + car.yearOfProduction
                     + " Engine: "
                     + car.engine
@@ -119,6 +129,8 @@ public class Logs {
                     + car.brand
                     + "  Model: "
                     + car.model
+                    + "  Body: "
+                    + car.body
                     + "  Year of Production: "
                     + car.yearOfProduction
                     + "  Engine: "
@@ -152,6 +164,8 @@ public class Logs {
                 + car.brand
                 + "  Model: "
                 + car.model
+                + "  Body: "
+                + car.body
                 + "  Year of Production: "
                 + car.yearOfProduction
                 + "  Engine: "
@@ -172,6 +186,8 @@ public class Logs {
                 + car.brand
                 + "  Model: "
                 + car.model
+                + "  Body: "
+                + car.body
                 + "  Year of Production: "
                 + car.yearOfProduction
                 + "  Engine: "

@@ -18,7 +18,7 @@ public class CarBuyer extends Agent{
     ACLMessage [] findResponses;
     HashMap<Car, Tuple> bestOffer = new HashMap<>();
 
-    private void SendFindRequest(){
+    private void sendFindRequest(){
         ACLMessage request = new ACLMessage( ACLMessage.REQUEST );
         String message = MessageBuilder.responseBuilder(CarActions.FIND, cars);
         Logs.BuyerFindLog(cars, getAID());
@@ -32,7 +32,7 @@ public class CarBuyer extends Agent{
         requestFindSend = true;
     }
 
-    private void GetAllOffers(){
+    private void getAllOffers(){
         for (int i = 0; i< findResponses.length; i++){
             ACLMessage response = blockingReceive(5000);
             if (response!=null){
@@ -40,8 +40,8 @@ public class CarBuyer extends Agent{
             }
         }
     }
-    private void FindResponseValidate(String message, ACLMessage response){
-        Car [] offer = Car.splitStringAndGetCars(message,";");
+    private void findResponseValidate(String message, ACLMessage response){
+        Car [] offer = Car.splitString(message,";");
         if(offer.length > 0){
             for (Car car : bestOffer.keySet()){
                 for (Car car1 : offer){
@@ -55,7 +55,7 @@ public class CarBuyer extends Agent{
         }
     }
 
-    private void SendBuyRequest(){
+    private void sendBuyRequest(){
         requestCounter = 0;
         for (Car car : bestOffer.keySet()){
             if(bestOffer.get(car).message != null) {
@@ -109,20 +109,20 @@ public class CarBuyer extends Agent{
             @Override
             protected void onTick() {
                 if(!requestFindSend){
-                    SendFindRequest();
+                    sendFindRequest();
                 }
 
                 if(!requestBuySend && requestFindSend){
-                    GetAllOffers();
+                    getAllOffers();
                     for (ACLMessage response : findResponses){
                         if(response!=null && response.getContent()!=null){
                             String [] splitMessage = response.getContent().split("::");
                             if(CarActions.fromString(splitMessage[0]) == CarActions.FIND){
-                                FindResponseValidate(splitMessage[1], response);
+                                findResponseValidate(splitMessage[1], response);
                             }
                         }
                     }
-                    SendBuyRequest();
+                    sendBuyRequest();
                 }
 
                 if(requestBuySend){
